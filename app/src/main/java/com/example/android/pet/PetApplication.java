@@ -3,6 +3,8 @@ package com.example.android.pet;
 import android.app.Activity;
 import android.app.Application;
 
+import com.example.android.pet.di.DaggerAppComponent;
+
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
