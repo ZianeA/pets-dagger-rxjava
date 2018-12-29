@@ -12,8 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.pet.R;
+import com.example.android.pet.data.Pet;
 
-public class CatalogFragment extends Fragment {
+import java.util.List;
+
+public class CatalogFragment extends Fragment implements CatalogView {
 
     public CatalogFragment() {
         // Required empty public constructor
@@ -29,6 +32,21 @@ public class CatalogFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+    }
+
+    @Override
+    public void displayPets(List<Pet> pets) {
+
+    }
+
+    @Override
+    public void displayNoPets() {
+
+    }
+
+    @Override
+    public void displayError() {
 
     }
 }
