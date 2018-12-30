@@ -2,13 +2,17 @@ package com.example.android.pet.editor;
 
 import com.example.android.pet.data.Pet;
 import com.example.android.pet.data.PetRepository;
+import com.example.android.pet.di.FragmentScope;
 import com.example.android.pet.schedulers.SchedulerProvider;
 import com.google.common.primitives.Ints;
+
+import javax.inject.Inject;
 
 import io.reactivex.Completable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
+@FragmentScope
 public class EditorPresenter {
 
     private int petId;
@@ -17,6 +21,7 @@ public class EditorPresenter {
     private SchedulerProvider schedulerProvider;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
+    @Inject
     public EditorPresenter(int petId, EditorView view, PetRepository repository, SchedulerProvider schedulerProvider) {
         this.petId = petId;
         this.view = view;
