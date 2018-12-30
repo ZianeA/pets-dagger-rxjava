@@ -1,6 +1,6 @@
 package com.example.android.pet.catalog;
 
-import com.example.android.pet.catalog.util.SynchronousSchedulerProvider;
+import com.example.android.pet.util.SynchronousSchedulerProvider;
 import com.example.android.pet.data.Pet;
 import com.example.android.pet.data.PetRepository;
 
@@ -9,9 +9,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
@@ -19,7 +17,6 @@ import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
 
 import static org.mockito.Mockito.*;
 

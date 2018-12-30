@@ -1,4 +1,4 @@
-package com.example.android.pet.catalog.util;
+package com.example.android.pet.util;
 
 import com.example.android.pet.schedulers.SchedulerProvider;
 
