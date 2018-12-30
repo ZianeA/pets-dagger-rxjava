@@ -50,4 +50,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc3'
     implementation 'com.airbnb.android:epoxy:3.1.0'
     annotationProcessor 'com.airbnb.android:epoxy-processor:3.1.0'
+    implementation 'com.google.guava:guava:27.0.1-android'
 }
