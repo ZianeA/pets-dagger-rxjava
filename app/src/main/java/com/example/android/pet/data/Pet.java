@@ -1,8 +1,14 @@
 package com.example.android.pet.data;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Pet {
 
+    @PrimaryKey(autoGenerate = true)
     private int id;
+
     private String name;
     private String breed;
     private int age;

@@ -42,14 +42,14 @@ import static util.PetTest.*;
 @RunWith(AndroidJUnit4.class)
 public class CatalogActivityTest {
 
-    public static final Intent EMPTY_INTENT = new Intent();
+    private static final Intent EMPTY_INTENT = new Intent();
 
     @Rule
     public ActivityTestRule<CatalogActivity> activityRule = new ActivityTestRule<CatalogActivity>(
             CatalogActivity.class, true, false);
 
     @Mock
-    PetRepository repository;
+    private PetRepository repository;
 
     @Before
     public void setUp() throws Exception {

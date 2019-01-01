@@ -11,23 +11,26 @@ import io.reactivex.Observable;
 @Singleton
 public class PetRepository {
 
+    private PetDataSource localDataSource;
+
     @Inject
-    public PetRepository() {
+    public PetRepository(PetDataSource localDataSource) {
+        this.localDataSource = localDataSource;
     }
 
     public Observable<List<Pet>> getPets() {
-        return null;
+        return localDataSource.getPets();
     }
 
     public Observable<Pet> getPet(int petId) {
-        return null;
+        return localDataSource.getPet(petId);
     }
 
     public Completable updatePet(Pet pet) {
-        return null;
+        return localDataSource.updatePet(pet);
     }
 
-    public Completable insertPet(Pet pet){
-        return null;
+    public Completable insertPet(Pet pet) {
+        return localDataSource.insertPet(pet);
     }
 }
