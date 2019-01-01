@@ -18,6 +18,6 @@ public abstract class EditorFragmentModule {
     static int providePetId(EditorFragment editorFragment){
         return editorFragment.getActivity()
                 .getIntent()
-                .getIntExtra(EditorFragment.EXTRA_PET, 0);
+                .getIntExtra(EditorFragment.EXTRA_PET_ID, 0);
     }
 }

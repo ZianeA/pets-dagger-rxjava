@@ -22,11 +22,19 @@ public abstract class PetEpoxyModel extends EpoxyModelWithHolder<PetEpoxyModel.P
     @EpoxyAttribute
     String breed;
 
+    @EpoxyAttribute
+    View.OnClickListener clickListener;
+
+
     @Override
     public void bind(@NonNull PetEpoxyHolder holder) {
         super.bind(holder);
         holder.name.setText(name);
         holder.breed.setText(breed);
+
+        if (clickListener != null) {
+            holder.itemView.setOnClickListener(clickListener);
+        }
     }
 
     class PetEpoxyHolder extends EpoxyHolder {
@@ -37,9 +45,12 @@ public abstract class PetEpoxyModel extends EpoxyModelWithHolder<PetEpoxyModel.P
         @BindView(R.id.tv_breed)
         TextView breed;
 
+        private View itemView;
+
         @Override
         protected void bindView(@NonNull View itemView) {
             ButterKnife.bind(this, itemView);
+            this.itemView = itemView;
         }
     }
 }

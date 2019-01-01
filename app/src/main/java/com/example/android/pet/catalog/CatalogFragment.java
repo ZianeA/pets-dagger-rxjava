@@ -2,7 +2,7 @@ package com.example.android.pet.catalog;
 
 
 import android.content.Context;
-import android.opengl.Visibility;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -19,11 +18,13 @@ import dagger.android.support.AndroidSupportInjection;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.pet.R;
 import com.example.android.pet.data.Pet;
+import com.example.android.pet.editor.EditorActivity;
+import com.example.android.pet.editor.EditorFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -85,7 +86,11 @@ public class CatalogFragment extends Fragment implements CatalogView {
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_pets);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        epoxyController.setOnPetClickListener(presenter::editPet);
         recyclerView.setAdapter(epoxyController.getAdapter());
+
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab_add_pet);
+        fab.setOnClickListener(v -> presenter.addPet());
     }
 
     @Override
@@ -108,7 +113,9 @@ public class CatalogFragment extends Fragment implements CatalogView {
 
     @Override
     public void displayPetEditor(int petId) {
-
+        Intent intent = new Intent(getContext(), EditorActivity.class);
+        intent.putExtra(EditorFragment.EXTRA_PET_ID, petId);
+        startActivity(intent);
     }
 
     private void setNoPetsViewsVisibility(int visibility) {

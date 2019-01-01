@@ -1,6 +1,5 @@
 package com.example.android.pet.editor;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.widget.Toast;
 
@@ -8,9 +7,7 @@ import com.example.android.pet.R;
 import com.example.android.pet.catalog.CatalogActivity;
 import com.example.android.pet.data.Pet;
 import com.example.android.pet.data.PetRepository;
-import com.example.android.pet.di.DaggerTestAppComponent;
 import com.example.android.pet.di.DaggerTestUtil;
-import com.example.android.pet.di.TestPetApplication;
 
 import org.junit.After;
 import org.junit.Before;
@@ -18,16 +15,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import javax.annotation.meta.When;
-
-import androidx.fragment.app.Fragment;
-import androidx.test.espresso.Espresso;
-import androidx.test.espresso.IdlingRegistry;
-import androidx.test.espresso.IdlingResource;
-import androidx.test.espresso.action.ViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -48,9 +37,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static util.PetTest.*;
 
@@ -152,7 +139,7 @@ public class EditorActivityTest {
     private Intent getIntent(int petId) {
         Intent intent = new Intent(InstrumentationRegistry.getInstrumentation().getTargetContext(),
                 EditorActivity.class);
-        intent.putExtra(EditorFragment.EXTRA_PET, petId);
+        intent.putExtra(EditorFragment.EXTRA_PET_ID, petId);
 
         return intent;
     }

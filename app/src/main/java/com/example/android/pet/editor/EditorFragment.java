@@ -32,7 +32,7 @@ import javax.inject.Inject;
 
 public class EditorFragment extends Fragment implements EditorView {
 
-    public static final String EXTRA_PET = "EXTRA PET";
+    public static final String EXTRA_PET_ID = "EXTRA PET ID";
 
     @Inject
     EditorPresenter presenter;
