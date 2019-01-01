@@ -1,4 +1,4 @@
-package com.example.android.pet.schedulers;
+package com.example.android.pet.util.schedulers;
 
 import io.reactivex.Scheduler;
 

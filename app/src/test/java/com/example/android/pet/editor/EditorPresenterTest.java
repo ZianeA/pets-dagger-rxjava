@@ -2,7 +2,10 @@ package com.example.android.pet.editor;
 
 import com.example.android.pet.data.Pet;
 import com.example.android.pet.data.PetRepository;
-import com.example.android.pet.util.SynchronousSchedulerProvider;
+
+import util.SynchronousSchedulerProvider;
+
+import static util.PetTest.*;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,8 +25,6 @@ import static org.mockito.Mockito.*;
 
 @RunWith(JUnit4.class)
 public class EditorPresenterTest {
-
-    private static final Pet PET = new Pet(101, "name", "breed", 11);
 
     private EditorPresenter presenter;
 
@@ -70,7 +71,6 @@ public class EditorPresenterTest {
     @Test
     public void savePet_handleAddPet() {
         //Arrange
-        Pet newPet = new Pet(0, PET.getName(), PET.getBreed(), PET.getAge());
         ArgumentCaptor<Pet> petCaptor = ArgumentCaptor.forClass(Pet.class);
 
         //Act
@@ -80,7 +80,7 @@ public class EditorPresenterTest {
         verify(view).displayPetSavedMessage();
         verify(view).displayPetCatalog();
         verify(repository).insertPet(petCaptor.capture());
-        assertEquals(newPet, petCaptor.getValue());
+        assertEquals(NEW_PET, petCaptor.getValue());
     }
 
     @Test

@@ -1,6 +1,6 @@
-package com.example.android.pet.util;
+package util;
 
-import com.example.android.pet.schedulers.SchedulerProvider;
+import com.example.android.pet.util.schedulers.SchedulerProvider;
 
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;

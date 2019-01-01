@@ -1,7 +1,7 @@
 package com.example.android.pet.catalog;
 
-import com.example.android.pet.util.SynchronousSchedulerProvider;
-import com.example.android.pet.data.Pet;
+import util.SynchronousSchedulerProvider;
+
 import com.example.android.pet.data.PetRepository;
 
 import org.junit.Before;
@@ -14,17 +14,14 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import java.util.Collections;
-import java.util.List;
 
 import io.reactivex.Observable;
 
 import static org.mockito.Mockito.*;
+import static util.PetTest.*;
 
 @RunWith(JUnit4.class)
 public class CatalogPresenterTest {
-
-    private static final Pet PET = new Pet(101, "name", "breed", 11);
-    private static final List<Pet> PETS = Collections.singletonList(PET);
 
     private CatalogPresenter presenter;
 

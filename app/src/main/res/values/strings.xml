@@ -5,4 +5,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_pets_message">Wow, such empty</string>
     <string name="load_pets_error">Error: unable to retrieve pets</string>
+    <string name="pet_saved_message">Pet has been successfully saved</string>
+    <string name="invalid_argument_message">Error: invalid argument</string>
 </resources>

@@ -1,9 +1,11 @@
 package com.example.android.pet.editor;
 
+import android.util.Log;
+
 import com.example.android.pet.data.Pet;
 import com.example.android.pet.data.PetRepository;
 import com.example.android.pet.di.FragmentScope;
-import com.example.android.pet.schedulers.SchedulerProvider;
+import com.example.android.pet.util.schedulers.SchedulerProvider;
 import com.google.common.primitives.Ints;
 
 import javax.inject.Inject;
@@ -14,6 +16,8 @@ import io.reactivex.disposables.Disposable;
 
 @FragmentScope
 public class EditorPresenter {
+
+    private static final String TAG = EditorPresenter.class.getSimpleName();
 
     private int petId;
     private EditorView view;
@@ -35,7 +39,12 @@ public class EditorPresenter {
         Disposable disposable = repository.getPet(petId)
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
-                .subscribe(view::displayPet);
+                .subscribe(view::displayPet, throwable ->
+                {
+                    Log.d(TAG, "start: " + throwable.getMessage());
+                    //TODO implement onError
+                });
+
 
         compositeDisposable.add(disposable);
     }

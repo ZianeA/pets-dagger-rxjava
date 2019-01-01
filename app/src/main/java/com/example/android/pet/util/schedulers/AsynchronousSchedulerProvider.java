@@ -1,4 +1,4 @@
-package com.example.android.pet.schedulers;
+package com.example.android.pet.util.schedulers;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

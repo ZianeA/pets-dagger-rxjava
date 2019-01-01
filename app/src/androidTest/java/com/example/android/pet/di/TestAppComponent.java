@@ -2,9 +2,8 @@ package com.example.android.pet.di;
 
 import android.app.Application;
 
-import com.example.android.pet.PetApplication;
 import com.example.android.pet.data.PetRepository;
-import com.example.android.pet.schedulers.SchedulerProviderModule;
+import com.example.android.pet.util.schedulers.SchedulerProviderModule;
 
 import javax.inject.Singleton;
 

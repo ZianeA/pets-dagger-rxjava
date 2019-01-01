@@ -6,6 +6,7 @@ import com.example.android.pet.R;
 import com.example.android.pet.data.Pet;
 import com.example.android.pet.data.PetRepository;
 import com.example.android.pet.di.DaggerTestAppComponent;
+import com.example.android.pet.di.DaggerTestUtil;
 import com.example.android.pet.di.TestAppComponent;
 import com.example.android.pet.di.TestPetApplication;
 
@@ -39,12 +40,11 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+import static util.PetTest.*;
 
 @RunWith(AndroidJUnit4.class)
 public class CatalogActivityTest {
 
-    private static final Pet PET = new Pet(101, "name", "breed", 11);
-    private static final List<Pet> PETS = Collections.singletonList(PET);
     public static final Intent EMPTY_INTENT = new Intent();
 
     @Rule
@@ -58,14 +58,7 @@ public class CatalogActivityTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        TestPetApplication application = (TestPetApplication) InstrumentationRegistry.getInstrumentation()
-                .getTargetContext().getApplicationContext();
-
-        DaggerTestAppComponent.builder()
-                .application(application)
-                .petRepository(repository)
-                .build()
-                .inject(application);
+        DaggerTestUtil.buildComponentAndInjectApp(repository);
     }
 
     @Test
