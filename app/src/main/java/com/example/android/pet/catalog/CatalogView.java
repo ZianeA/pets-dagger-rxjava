@@ -11,4 +11,6 @@ interface CatalogView {
     void displayNoPets();
 
     void displayError();
+
+    void displayPetEditor(int petId);
 }

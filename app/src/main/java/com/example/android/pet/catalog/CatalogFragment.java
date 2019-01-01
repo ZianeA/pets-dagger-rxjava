@@ -106,6 +106,11 @@ public class CatalogFragment extends Fragment implements CatalogView {
                 Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void displayPetEditor(int petId) {
+
+    }
+
     private void setNoPetsViewsVisibility(int visibility) {
         for (View view : noPetsViews) {
             view.setVisibility(visibility);

@@ -74,4 +74,26 @@ public class CatalogPresenterTest {
         //Assert
         verify(view).displayError();
     }
+
+    @Test
+    public void editPet_passPetIdToPetView() {
+        //Arrange
+
+        //Act
+        presenter.editPet(PET);
+
+        //Assert
+        verify(view).displayPetEditor(PET.getId());
+    }
+
+    @Test
+    public void addPet_passPetIdOfZeroToView() {
+        //Arrange
+
+        //Act
+        presenter.addPet();
+
+        //Assert
+        verify(view).displayPetEditor(0);
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.android.pet.catalog;
 
+import com.example.android.pet.data.Pet;
 import com.example.android.pet.data.PetRepository;
 import com.example.android.pet.di.FragmentScope;
 import com.example.android.pet.util.schedulers.SchedulerProvider;
@@ -43,5 +44,13 @@ public class CatalogPresenter {
     //TODO call this method in onPause
     public void unsubscribe() {
         compositeDisposable.clear();
+    }
+
+    public void editPet(Pet pet) {
+        view.displayPetEditor(pet.getId());
+    }
+
+    public void addPet() {
+        view.displayPetEditor(0);
     }
 }
