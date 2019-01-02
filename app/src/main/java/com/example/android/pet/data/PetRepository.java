@@ -33,4 +33,8 @@ public class PetRepository {
     public Completable insertPet(Pet pet) {
         return localDataSource.insertPet(pet);
     }
+
+    public Completable deleteAllPets() {
+        return localDataSource.deleteAllPets();
+    }
 }

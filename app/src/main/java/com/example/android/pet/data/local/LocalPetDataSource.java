@@ -4,11 +4,14 @@ import com.example.android.pet.data.Pet;
 import com.example.android.pet.data.PetDataSource;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Completable;
+import io.reactivex.CompletableEmitter;
+import io.reactivex.CompletableOnSubscribe;
 import io.reactivex.Observable;
 
 @Singleton
@@ -39,5 +42,10 @@ public class LocalPetDataSource implements PetDataSource {
     @Override
     public Completable insertPet(Pet pet) {
         return petDao.insertPet(pet);
+    }
+
+    @Override
+    public Completable deleteAllPets() {
+        return Completable.fromAction(petDao::deleteAllPets);
     }
 }

@@ -53,4 +53,13 @@ public class CatalogPresenter {
     public void addPet() {
         view.displayPetEditor(0);
     }
+
+    public void deleteAllPets() {
+        Disposable disposable = repository.deleteAllPets()
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(view::displayPetsDeletedMessage);
+
+        compositeDisposable.add(disposable);
+    }
 }

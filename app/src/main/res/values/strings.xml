@@ -10,4 +10,6 @@
     <string name="label_name">Name</string>
     <string name="label_breed">Breed</string>
     <string name="label_age">Age</string>
+    <string name="pets_deleted_message">All pets have been successfully deleted</string>
+    <string name="action_delete_all_pets">Delete All Pets</string>
 </resources>

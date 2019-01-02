@@ -1,5 +1,6 @@
 package com.example.android.pet.catalog;
 
+import io.reactivex.Completable;
 import util.SynchronousSchedulerProvider;
 
 import com.example.android.pet.data.PetRepository;
@@ -95,5 +96,17 @@ public class CatalogPresenterTest {
 
         //Assert
         verify(view).displayPetEditor(0);
+    }
+
+    @Test
+    public void deleteAllPets() {
+        //Arrange
+        when(repository.deleteAllPets()).thenReturn(Completable.complete());
+
+        //Act
+        presenter.deleteAllPets();
+
+        //Assert
+        verify(view).displayPetsDeletedMessage();
     }
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,9 @@ import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -37,6 +41,9 @@ public class CatalogFragment extends Fragment implements CatalogView {
 
     @BindViews({R.id.tv_no_pets, R.id.iv_no_pets})
     List<View> noPetsViews;
+
+    @VisibleForTesting
+    Toast toast;
 
     private final CatalogEpoxyController epoxyController = new CatalogEpoxyController();
     private Unbinder unbinder;
@@ -76,8 +83,15 @@ public class CatalogFragment extends Fragment implements CatalogView {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_catalog, container, false);
         unbinder = ButterKnife.bind(this, view);
+        setHasOptionsMenu(true);
         return view;
     }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.catalog_fragment_menu, menu);
+    }
+
     //endregion
 
     @Override
@@ -94,6 +108,17 @@ public class CatalogFragment extends Fragment implements CatalogView {
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete_all_pets:
+                presenter.deleteAllPets();
+                break;
+        }
+
+        return true;
+    }
+
+    @Override
     public void displayPets(List<Pet> pets) {
         epoxyController.setPets(pets);
         setNoPetsViewsVisibility(View.GONE);
@@ -107,8 +132,9 @@ public class CatalogFragment extends Fragment implements CatalogView {
 
     @Override
     public void displayError() {
-        Toast.makeText(getContext(), getResources().getString(R.string.load_pets_error),
-                Toast.LENGTH_SHORT).show();
+        toast = Toast.makeText(getContext(), R.string.load_pets_error,
+                Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     @Override
@@ -116,6 +142,13 @@ public class CatalogFragment extends Fragment implements CatalogView {
         Intent intent = new Intent(getContext(), EditorActivity.class);
         intent.putExtra(EditorFragment.EXTRA_PET_ID, petId);
         startActivity(intent);
+    }
+
+    @Override
+    public void displayPetsDeletedMessage() {
+        toast = Toast.makeText(getContext(), R.string.pets_deleted_message,
+                Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     private void setNoPetsViewsVisibility(int visibility) {

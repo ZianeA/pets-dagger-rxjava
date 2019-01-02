@@ -127,4 +127,19 @@ public class LocalPetDataSourceTest {
                 .subscribe(pets -> assertEquals(petCount, pets.size()));
 
     }
+
+    @Test
+    public void deleteAllPets() {
+        //Arrange
+        for (int i = 0; i < 3; i++) {
+            localDataSource.insertPet(NEW_PET).subscribe();
+        }
+
+        //Act, Assert
+        localDataSource.deleteAllPets().test()
+                .assertComplete();
+
+        localDataSource.getPets().test()
+                .assertValue(List::isEmpty);
+    }
 }

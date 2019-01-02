@@ -5,6 +5,7 @@ import com.example.android.pet.data.Pet;
 import java.util.List;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -25,4 +26,7 @@ public interface PetDao {
 
     @Update
     Completable updatePet(Pet pet);
+
+    @Query("DELETE FROM Pet")
+    void deleteAllPets();
 }

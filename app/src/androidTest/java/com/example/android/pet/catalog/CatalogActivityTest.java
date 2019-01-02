@@ -1,6 +1,7 @@
 package com.example.android.pet.catalog;
 
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.example.android.pet.R;
 import com.example.android.pet.data.PetRepository;
@@ -18,11 +19,15 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Collections;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.intent.matcher.IntentMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 
+import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
@@ -59,9 +64,18 @@ public class CatalogActivityTest {
         DaggerTestUtil.buildComponentAndInjectApp(repository);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @After
     public void tearDown() throws Exception {
         release();
+
+        Toast toast = ((CatalogFragment) activityRule.getActivity().getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_holder))
+                .toast;
+
+        if (toast != null) {
+            toast.cancel();
+        }
     }
 
     @Test
@@ -129,5 +143,22 @@ public class CatalogActivityTest {
         //Assert
         intended(allOf(hasComponent(EditorActivity.class.getName()),
                 IntentMatchers.hasExtra(EditorFragment.EXTRA_PET_ID, PET.getId())));
+    }
+
+    @Test
+    public void displayPetsDeletedMessage() {
+        //Arrange
+        when(repository.getPets()).thenReturn(Observable.just(PETS));
+        when(repository.deleteAllPets()).thenReturn(Completable.complete());
+
+        //Act
+        activityRule.launchActivity(EMPTY_INTENT);
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation()
+                .getTargetContext());
+        onView(withText(R.string.action_delete_all_pets)).perform(click());
+
+        //Assert
+        onView(withText(R.string.pets_deleted_message)).inRoot(withDecorView(not(activityRule.getActivity()
+                .getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 }
