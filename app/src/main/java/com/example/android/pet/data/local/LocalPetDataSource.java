@@ -23,21 +23,21 @@ public class LocalPetDataSource implements PetDataSource {
 
     @Override
     public Observable<List<Pet>> getPets() {
-        return null;
+        return petDao.getPets();
     }
 
     @Override
     public Observable<Pet> getPet(int petId) {
-        return null;
+        return petDao.getPet(petId);
     }
 
     @Override
     public Completable updatePet(Pet pet) {
-        return null;
+        return petDao.updatePet(pet);
     }
 
     @Override
     public Completable insertPet(Pet pet) {
-        return null;
+        return petDao.insertPet(pet);
     }
 }

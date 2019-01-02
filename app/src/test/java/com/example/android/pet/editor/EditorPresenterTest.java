@@ -128,11 +128,4 @@ public class EditorPresenterTest {
     private EditorPresenter getPresenter(int id) {
         return new EditorPresenter(id, view, repository, new SynchronousSchedulerProvider());
     }
-
-    private void assertEquals(Pet expected, Pet actual) {
-        Assert.assertEquals(expected.getId(), actual.getId());
-        Assert.assertEquals(expected.getName(), actual.getName());
-        Assert.assertEquals(expected.getBreed(), actual.getBreed());
-        Assert.assertEquals(expected.getAge(), actual.getAge());
-    }
 }
