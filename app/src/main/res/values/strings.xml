@@ -7,4 +7,7 @@
     <string name="load_pets_error">Error: unable to retrieve pets</string>
     <string name="pet_saved_message">Pet has been successfully saved</string>
     <string name="invalid_argument_message">Error: invalid argument</string>
+    <string name="label_name">Name</string>
+    <string name="label_breed">Breed</string>
+    <string name="label_age">Age</string>
 </resources>
