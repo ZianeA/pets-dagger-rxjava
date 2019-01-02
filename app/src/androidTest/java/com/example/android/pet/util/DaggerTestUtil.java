@@ -1,6 +1,8 @@
-package com.example.android.pet.di;
+package com.example.android.pet.util;
 
 import com.example.android.pet.data.PetRepository;
+import com.example.android.pet.di.DaggerTestAppComponent;
+import com.example.android.pet.di.TestPetApplication;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 

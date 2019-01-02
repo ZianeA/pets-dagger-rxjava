@@ -5,9 +5,10 @@ import android.widget.Toast;
 
 import com.example.android.pet.R;
 import com.example.android.pet.data.PetRepository;
-import com.example.android.pet.di.DaggerTestUtil;
+import com.example.android.pet.util.DaggerTestUtil;
 import com.example.android.pet.editor.EditorActivity;
 import com.example.android.pet.editor.EditorFragment;
+import com.example.android.pet.util.ToastUtil;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,7 +20,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Collections;
 
-import androidx.test.espresso.Espresso;
 import androidx.test.espresso.intent.matcher.IntentMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -39,6 +39,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static com.example.android.pet.util.ToastUtil.*;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.not;
 import static org.mockito.Mockito.*;
@@ -64,18 +65,11 @@ public class CatalogActivityTest {
         DaggerTestUtil.buildComponentAndInjectApp(repository);
     }
 
-    @SuppressWarnings("ConstantConditions")
     @After
     public void tearDown() throws Exception {
         release();
 
-        Toast toast = ((CatalogFragment) activityRule.getActivity().getSupportFragmentManager()
-                .findFragmentById(R.id.fragment_holder))
-                .toast;
-
-        if (toast != null) {
-            toast.cancel();
-        }
+        clearToasts(activityRule.getActivity());
     }
 
     @Test
@@ -112,8 +106,7 @@ public class CatalogActivityTest {
         activityRule.launchActivity(EMPTY_INTENT);
 
         //Assert
-        onView(withText(R.string.load_pets_error)).inRoot(withDecorView(not(activityRule.getActivity()
-                .getWindow().getDecorView()))).check(matches(isDisplayed()));
+        isToastDisplayed(R.string.load_pets_error, activityRule.getActivity());
     }
 
     @Test
@@ -158,7 +151,6 @@ public class CatalogActivityTest {
         onView(withText(R.string.action_delete_all_pets)).perform(click());
 
         //Assert
-        onView(withText(R.string.pets_deleted_message)).inRoot(withDecorView(not(activityRule.getActivity()
-                .getWindow().getDecorView()))).check(matches(isDisplayed()));
+        isToastDisplayed(R.string.pets_deleted_message, activityRule.getActivity());
     }
 }

@@ -7,7 +7,8 @@ import com.example.android.pet.R;
 import com.example.android.pet.catalog.CatalogActivity;
 import com.example.android.pet.data.Pet;
 import com.example.android.pet.data.PetRepository;
-import com.example.android.pet.di.DaggerTestUtil;
+import com.example.android.pet.util.DaggerTestUtil;
+import com.example.android.pet.util.ToastUtil;
 
 import org.junit.After;
 import org.junit.Before;
@@ -36,6 +37,7 @@ import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static com.example.android.pet.util.ToastUtil.*;
 import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -58,17 +60,9 @@ public class EditorActivityTest {
         DaggerTestUtil.buildComponentAndInjectApp(repository);
     }
 
-    @SuppressWarnings("ConstantConditions")
     @After
     public void tearDown() throws Exception {
-
-        Toast toast = ((EditorFragment) activityRule.getActivity().getSupportFragmentManager()
-                .findFragmentById(R.id.fragment_holder))
-                .toast;
-
-        if (toast != null) {
-            toast.cancel();
-        }
+        clearToasts(activityRule.getActivity());
     }
 
     @Test
@@ -99,9 +93,7 @@ public class EditorActivityTest {
         onView(withId(R.id.fab_save_pet)).perform(click());
 
         //Assert
-        onView(withText(R.string.pet_saved_message)).inRoot(withDecorView(not(
-                activityRule.getActivity().getWindow().getDecorView())))
-                .check(matches(isDisplayed()));
+        isToastDisplayed(R.string.pet_saved_message, activityRule.getActivity());
     }
 
     @Test
@@ -131,9 +123,7 @@ public class EditorActivityTest {
         onView(withId(R.id.fab_save_pet)).perform(click());
 
         //Assert
-        onView(withText(R.string.invalid_argument_message)).inRoot(withDecorView(not(
-                activityRule.getActivity().getWindow().getDecorView())))
-                .check(matches(isDisplayed()));
+        isToastDisplayed(R.string.invalid_argument_message, activityRule.getActivity());
     }
 
     private Intent getIntent(int petId) {
