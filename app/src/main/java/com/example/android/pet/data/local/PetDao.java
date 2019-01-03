@@ -29,4 +29,7 @@ public interface PetDao {
 
     @Query("DELETE FROM Pet")
     void deleteAllPets();
+
+    @Query("DELETE FROM Pet WHERE id = :petId")
+    void deletePet(int petId);
 }

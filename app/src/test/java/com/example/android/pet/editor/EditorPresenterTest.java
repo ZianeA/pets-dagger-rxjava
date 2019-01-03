@@ -125,6 +125,32 @@ public class EditorPresenterTest {
     }
     //endregion
 
+    @Test
+    public void deletePet_handleEditPet() {
+        //Arrange
+        when(repository.deletePet(PET.getId())).thenReturn(Completable.complete());
+
+        //Act
+        presenter = getPresenter(PET.getId());
+        presenter.deletePet();
+
+        //Assert
+        verify(view).displayPetDeletedMessage();
+        verify(view).displayPetCatalog();
+    }
+
+    @Test
+    public void deletePet_handleAddPet() {
+        //Arrange
+
+        //Act
+        presenter.deletePet();
+
+        //Assert
+        verify(repository, never()).deletePet(anyInt());
+        verify(view).displayPetCatalog();
+    }
+
     private EditorPresenter getPresenter(int id) {
         return new EditorPresenter(id, view, repository, new SynchronousSchedulerProvider());
     }

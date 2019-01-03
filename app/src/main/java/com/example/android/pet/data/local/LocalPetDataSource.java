@@ -48,4 +48,9 @@ public class LocalPetDataSource implements PetDataSource {
     public Completable deleteAllPets() {
         return Completable.fromAction(petDao::deleteAllPets);
     }
+
+    @Override
+    public Completable deletePet(int petId) {
+        return Completable.fromAction(() -> petDao.deletePet(petId));
+    }
 }

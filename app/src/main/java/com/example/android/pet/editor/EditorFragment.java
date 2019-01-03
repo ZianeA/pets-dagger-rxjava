@@ -18,6 +18,9 @@ import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -73,11 +76,17 @@ public class EditorFragment extends Fragment implements EditorView {
     }
 
     @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.editor_fragment_menu, menu);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_editor, container, false);
         unbinder = ButterKnife.bind(this, view);
+        setHasOptionsMenu(true);
 
         return view;
     }
@@ -98,6 +107,17 @@ public class EditorFragment extends Fragment implements EditorView {
             presenter.savePet(name.getText().toString(), breed.getText().toString(),
                     age.getText().toString());
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete_pet:
+                presenter.deletePet();
+                break;
+        }
+
+        return true;
     }
 
     @Override
@@ -122,6 +142,12 @@ public class EditorFragment extends Fragment implements EditorView {
     @Override
     public void displayInvalidArgumentMessage() {
         toast = Toast.makeText(getContext(), R.string.invalid_argument_message, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    @Override
+    public void displayPetDeletedMessage() {
+        toast = Toast.makeText(getContext(), R.string.pet_deleted_message, Toast.LENGTH_SHORT);
         toast.show();
     }
 }

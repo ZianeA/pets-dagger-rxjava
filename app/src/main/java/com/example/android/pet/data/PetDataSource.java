@@ -15,4 +15,6 @@ public interface PetDataSource {
     Completable insertPet(Pet pet);
 
     Completable deleteAllPets();
+
+    Completable deletePet(int petId);
 }

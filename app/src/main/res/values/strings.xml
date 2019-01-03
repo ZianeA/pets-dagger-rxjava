@@ -12,4 +12,6 @@
     <string name="label_age">Age</string>
     <string name="pets_deleted_message">All pets have been successfully deleted</string>
     <string name="action_delete_all_pets">Delete All Pets</string>
+    <string name="pet_deleted_message">Pet has been successfully deleted</string>
+    <string name="action_delete_pet">Delete Pet</string>
 </resources>

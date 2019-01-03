@@ -10,4 +10,6 @@ interface EditorView {
     void displayPetSavedMessage();
 
     void displayInvalidArgumentMessage();
+
+    void displayPetDeletedMessage();
 }

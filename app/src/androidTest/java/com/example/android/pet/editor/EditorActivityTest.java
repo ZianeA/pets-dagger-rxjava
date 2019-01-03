@@ -58,6 +58,7 @@ public class EditorActivityTest {
         MockitoAnnotations.initMocks(this);
 
         DaggerTestUtil.buildComponentAndInjectApp(repository);
+        when(repository.getPets()).thenReturn(Observable.just(PETS));
     }
 
     @After
@@ -83,7 +84,6 @@ public class EditorActivityTest {
     public void displayPetSavedMessage() {
         //Arrange
         when(repository.insertPet(any(Pet.class))).thenReturn(Completable.complete());
-        when(repository.getPets()).thenReturn(Observable.just(PETS));
 
         //Act
         activityRule.launchActivity(getIntent(0));
@@ -102,7 +102,6 @@ public class EditorActivityTest {
         init();
         when(repository.updatePet(any(Pet.class))).thenReturn(Completable.complete());
         when(repository.getPet(PET.getId())).thenReturn(Observable.just(PET));
-        when(repository.getPets()).thenReturn(Observable.just(PETS));
 
         //Act
         activityRule.launchActivity(getIntent(PET.getId()));
@@ -118,12 +117,27 @@ public class EditorActivityTest {
         //Arrange
 
         //Act
-        activityRule.finishActivity();
         activityRule.launchActivity(getIntent(0));
         onView(withId(R.id.fab_save_pet)).perform(click());
 
         //Assert
         isToastDisplayed(R.string.invalid_argument_message, activityRule.getActivity());
+    }
+
+    @Test
+    public void displayPetDeletedMessage() {
+        //Arrange
+        when(repository.getPet(PET.getId())).thenReturn(Observable.just(PET));
+        when(repository.deletePet(PET.getId())).thenReturn(Completable.complete());
+
+        //Act
+        activityRule.launchActivity(getIntent(PET.getId()));
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation()
+                .getTargetContext());
+        onView(withText(R.string.action_delete_pet)).perform(click());
+
+        //Assert
+        isToastDisplayed(R.string.pet_deleted_message, activityRule.getActivity());
     }
 
     private Intent getIntent(int petId) {

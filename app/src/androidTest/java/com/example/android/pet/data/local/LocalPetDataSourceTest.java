@@ -142,4 +142,18 @@ public class LocalPetDataSourceTest {
         localDataSource.getPets().test()
                 .assertValue(List::isEmpty);
     }
+
+    @Test
+    public void deletePet() {
+        //Arrange
+        localDataSource.insertPet(PET).subscribe();
+
+        //Act, Assert
+        localDataSource.deletePet(PET.getId()).test()
+                .assertComplete();
+
+        localDataSource.getPets().test()
+                .assertValue(List::isEmpty);
+
+    }
 }

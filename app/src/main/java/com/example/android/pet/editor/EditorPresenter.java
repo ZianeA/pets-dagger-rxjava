@@ -63,11 +63,29 @@ public class EditorPresenter {
             savePet = repository.updatePet(pet);
         }
 
-        Disposable disposable = savePet.subscribeOn(schedulerProvider.io())
+        Disposable disposable = savePet
+                .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 .subscribe(() -> {
-                    view.displayPetCatalog();
                     view.displayPetSavedMessage();
+                    view.displayPetCatalog();
+                });
+
+        compositeDisposable.add(disposable);
+    }
+
+    public void deletePet() {
+        if (isAddPet()) {
+            view.displayPetCatalog();
+            return;
+        }
+
+        Disposable disposable = repository.deletePet(petId)
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(() -> {
+                    view.displayPetDeletedMessage();
+                    view.displayPetCatalog();
                 });
 
         compositeDisposable.add(disposable);
@@ -85,5 +103,4 @@ public class EditorPresenter {
     private boolean isAddPet() {
         return petId == 0;
     }
-
 }
