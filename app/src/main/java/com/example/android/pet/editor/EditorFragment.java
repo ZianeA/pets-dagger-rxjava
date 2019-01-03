@@ -111,13 +111,19 @@ public class EditorFragment extends Fragment implements EditorView {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        boolean consume;
+
         switch (item.getItemId()) {
             case R.id.action_delete_pet:
                 presenter.deletePet();
+                consume = true;
+                break;
+            default:
+                consume = super.onOptionsItemSelected(item);
                 break;
         }
 
-        return true;
+        return consume;
     }
 
     @Override

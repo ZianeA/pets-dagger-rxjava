@@ -30,6 +30,7 @@ import com.example.android.pet.editor.EditorActivity;
 import com.example.android.pet.editor.EditorFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -146,6 +147,8 @@ public class CatalogFragment extends Fragment implements CatalogView {
 
     @Override
     public void displayPetsDeletedMessage() {
+        epoxyController.setPets(Collections.emptyList());
+
         toast = Toast.makeText(getContext(), R.string.pets_deleted_message,
                 Toast.LENGTH_SHORT);
         toast.show();
