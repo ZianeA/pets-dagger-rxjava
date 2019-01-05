@@ -13,14 +13,10 @@ import com.example.android.pet.R;
 
 import javax.inject.Inject;
 
-public class CatalogActivity extends AppCompatActivity implements HasSupportFragmentInjector {
-
-    @Inject
-    DispatchingAndroidInjector<Fragment> supportFragmentInjector;
+public class CatalogActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
@@ -32,10 +28,5 @@ public class CatalogActivity extends AppCompatActivity implements HasSupportFrag
                     .add(R.id.fragment_holder, new CatalogFragment())
                     .commit();
         }
-    }
-
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        return supportFragmentInjector;
     }
 }
